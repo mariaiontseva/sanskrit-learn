@@ -143,11 +143,14 @@
   line-height: 1.8;
   color: #000000;
   font-weight: 600;
-  margin-bottom: 12px;
-  background: #fff9c4;
-  padding: 12px;
-  border-radius: 6px;
+  font-style: normal;
   font-family: 'Times New Roman', serif;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  background-color: #f5f9ff;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .translation {
