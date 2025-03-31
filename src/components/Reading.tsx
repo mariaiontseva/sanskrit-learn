@@ -2,15 +2,30 @@ import React, { useState } from 'react';
 import './Reading.css';
 import { nalaText } from '../data/nalaText';
 
+interface WordAnalysis {
+  sanskrit: string;
+  iast: string;
+  grammar: string;
+  meaning: string;
+}
+
+interface Verse {
+  number: number;
+  sanskrit: string;
+  transliteration: string;
+  translation: string;
+  wordByWord?: WordAnalysis[];
+}
+
 export const Reading: React.FC = () => {
   const [activeText, setActiveText] = useState<'nala' | 'ramayana'>('nala');
-  const [expandedSargas, setExpandedSargas] = useState<number[]>([1]); // Start with first sarga expanded
+  const [expandedVerses, setExpandedVerses] = useState<number[]>([]);
 
-  const toggleSarga = (sargaNumber: number) => {
-    setExpandedSargas(prev => 
-      prev.includes(sargaNumber) 
-        ? prev.filter(num => num !== sargaNumber)
-        : [...prev, sargaNumber]
+  const toggleVerse = (verseNumber: number) => {
+    setExpandedVerses(prev => 
+      prev.includes(verseNumber) 
+        ? prev.filter(v => v !== verseNumber)
+        : [...prev, verseNumber]
     );
   };
 
@@ -39,32 +54,35 @@ export const Reading: React.FC = () => {
             <div className="sargas">
               {nalaText.map((sarga) => (
                 <div key={sarga.number} className="sarga">
-                  <h3 
-                    className={`sarga-title ${expandedSargas.includes(sarga.number) ? 'expanded' : ''}`}
-                    onClick={() => toggleSarga(sarga.number)}
-                  >
-                    <span className="sarga-toggle">
-                      {expandedSargas.includes(sarga.number) ? '▼' : '▶'}
-                    </span>
-                    Sarga {sarga.number}: {sarga.title}
-                  </h3>
-                  {expandedSargas.includes(sarga.number) && (
-                    <div className="verses">
-                      {sarga.verses.map((verse) => (
-                        <div key={verse.number} className="verse">
-                          <div className="verse-number">Verse {verse.number}</div>
-                          <div className="sanskrit-text">{verse.sanskrit}</div>
-                          <div className="transliteration">{verse.transliteration}</div>
-                          {verse.translation && (
-                            <div className="translation">{verse.translation}</div>
-                          )}
-                          {verse.notes && (
-                            <div className="notes">{verse.notes}</div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <h3>{sarga.title}</h3>
+                  <div className="verses">
+                    {sarga.verses.map((verse) => (
+                      <div 
+                        key={verse.number} 
+                        className={`verse ${expandedVerses.includes(verse.number) ? 'expanded' : ''}`}
+                        onClick={() => toggleVerse(verse.number)}
+                      >
+                        <div className="verse-number">Verse {verse.number}</div>
+                        <div className="sanskrit-text">{verse.sanskrit}</div>
+                        <div className="transliteration">{verse.transliteration}</div>
+                        <div className="translation">{verse.translation}</div>
+                        {verse.wordByWord && expandedVerses.includes(verse.number) && (
+                          <div className="word-by-word">
+                            <div className="word-analysis">
+                              {verse.wordByWord.map((word, index) => (
+                                <div key={index} className="word-item">
+                                  <div className="sanskrit-word">{word.sanskrit}</div>
+                                  <div className="iast-word">{word.iast}</div>
+                                  <div className="grammar-info">{word.grammar}</div>
+                                  <div className="meaning">{word.meaning}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -83,4 +101,6 @@ export const Reading: React.FC = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export default Reading; 

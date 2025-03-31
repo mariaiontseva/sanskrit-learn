@@ -1,9 +1,16 @@
+interface WordAnalysis {
+  sanskrit: string;
+  iast: string;
+  grammar: string;
+  meaning: string;
+}
+
 interface Verse {
   number: number;
   sanskrit: string;
   transliteration: string;
-  translation?: string;
-  notes?: string;
+  translation: string;
+  wordByWord?: WordAnalysis[];
 }
 
 interface Sarga {
@@ -22,12 +29,88 @@ export const nalaText: Sarga[] = [
         sanskrit: "अथ नलोपाख्यानम्",
         transliteration: "atha nalopākhyānam",
         translation: "Now begins the story of Nala",
+        wordByWord: [
+          {
+            sanskrit: "अथ",
+            iast: "atha",
+            grammar: "indeclinable",
+            meaning: "now, then (auspicious beginning)"
+          },
+          {
+            sanskrit: "नलोपाख्यानम्",
+            iast: "nalopākhyānam",
+            grammar: "neuter nominative singular",
+            meaning: "the story of Nala (compound: nala + upākhyāna)"
+          }
+        ]
       },
       {
         number: 2,
         sanskrit: "अस्ति विदर्भेषु भीमो नाम राजा महौजसः |\nसर्वधर्मभृतां श्रेष्ठो नित्यं सत्यपराक्रमः ||",
         transliteration: "asti vidarbheṣu bhīmo nāma rājā mahaujasaḥ |\nsarvadharmabhṛtāṃ śreṣṭho nityaṃ satyaparākramaḥ ||",
         translation: "There was in Vidarbha a king named Bhīma of great might, foremost among all righteous men, ever devoted to truth and valor.",
+        wordByWord: [
+          {
+            sanskrit: "अस्ति",
+            iast: "asti",
+            grammar: "verb present 3rd person singular",
+            meaning: "is, exists"
+          },
+          {
+            sanskrit: "विदर्भेषु",
+            iast: "vidarbheṣu",
+            grammar: "masculine locative plural",
+            meaning: "in Vidarbha (country name)"
+          },
+          {
+            sanskrit: "भीमो",
+            iast: "bhīmo",
+            grammar: "masculine nominative singular",
+            meaning: "Bhīma (name meaning 'terrible, formidable')"
+          },
+          {
+            sanskrit: "नाम",
+            iast: "nāma",
+            grammar: "indeclinable",
+            meaning: "by name"
+          },
+          {
+            sanskrit: "राजा",
+            iast: "rājā",
+            grammar: "masculine nominative singular",
+            meaning: "king"
+          },
+          {
+            sanskrit: "महौजसः",
+            iast: "mahaujasaḥ",
+            grammar: "masculine nominative singular",
+            meaning: "of great might (compound: mahā + ojas)"
+          },
+          {
+            sanskrit: "सर्वधर्मभृतां",
+            iast: "sarvadharmabhṛtāṃ",
+            grammar: "masculine genitive plural",
+            meaning: "of all dharma-bearers (compound: sarva + dharma + bhṛt)"
+          },
+          {
+            sanskrit: "श्रेष्ठो",
+            iast: "śreṣṭho",
+            grammar: "masculine nominative singular",
+            meaning: "best, foremost"
+          },
+          {
+            sanskrit: "नित्यं",
+            iast: "nityaṃ",
+            grammar: "indeclinable",
+            meaning: "always, eternally"
+          },
+          {
+            sanskrit: "सत्यपराक्रमः",
+            iast: "satyaparākramaḥ",
+            grammar: "masculine nominative singular",
+            meaning: "whose valor is true (compound: satya + parākrama)"
+          }
+        ]
       },
       {
         number: 3,

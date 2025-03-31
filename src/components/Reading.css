@@ -110,34 +110,34 @@
 }
 
 .verse {
-  margin-bottom: 0;
-  padding: 16px;
-  border: 1px solid #e6e9ef;
+  background-color: white;
   border-radius: 8px;
-  background: #fafbfc;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .verse:hover {
-  border-color: #0073ea;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.verse.expanded {
+  padding-bottom: 30px;
 }
 
 .verse-number {
-  font-size: 12px;
-  color: #676879;
-  margin-bottom: 8px;
-  font-weight: 500;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .sanskrit-text {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.8;
-  color: #323338;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .transliteration {
@@ -145,12 +145,10 @@
   line-height: 1.8;
   color: #000000;
   font-weight: 600;
-  background: #fff9c4;
-  padding: 12px 0;
-  margin: 8px 0;
+  background-color: #fff9c4;
+  padding: 5px 10px;
   border-radius: 4px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 .translation {
@@ -158,8 +156,56 @@
   line-height: 1.8;
   color: #000000;
   font-weight: 600;
-  margin: 12px 0;
-  font-style: normal;
+  margin-bottom: 15px;
+}
+
+.word-by-word {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.word-analysis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.word-item {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sanskrit-word {
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+}
+
+.iast-word {
+  font-size: 16px;
+  color: #000;
+  font-weight: 600;
+  background-color: #fff9c4;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.grammar-info {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+.meaning {
+  font-size: 15px;
+  color: #000;
+  font-weight: 500;
+  margin-top: 4px;
 }
 
 .notes {
