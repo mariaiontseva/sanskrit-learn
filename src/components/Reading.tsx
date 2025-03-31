@@ -54,6 +54,7 @@ export const Reading: React.FC = () => {
                         <div key={verse.number} className="verse">
                           <div className="verse-number">Verse {verse.number}</div>
                           <div className="sanskrit-text">{verse.sanskrit}</div>
+                          <div className="transliteration">{verse.transliteration}</div>
                           {verse.translation && (
                             <div className="translation">{verse.translation}</div>
                           )}

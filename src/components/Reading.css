@@ -139,6 +139,17 @@
   border-radius: 6px;
 }
 
+.transliteration {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #323338;
+  margin-bottom: 12px;
+  background: #f5f9ff;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Times New Roman', serif;
+}
+
 .translation {
   font-size: 14px;
   line-height: 1.6;
