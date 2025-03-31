@@ -1,5 +1,6 @@
 import React from 'react';
 import './Grammar.css';
+import SandhiTable from './SandhiTable';
 
 export const Grammar: React.FC = () => {
   const conjugationTables = {
@@ -190,7 +191,30 @@ export const Grammar: React.FC = () => {
             </tbody>
           </table>
         </section>
+
+        <section className="grammar-section">
+          <h3>Sandhi (Sound Changes)</h3>
+          <p>
+            Sandhi refers to a set of morphophonological changes that occur at word boundaries. 
+            These changes are regular and predictable, following specific rules based on the 
+            final sound of the preceding word and the initial sound of the following word.
+          </p>
+          <div className="sandhi-types">
+            <h4>Types of Sandhi:</h4>
+            <ul>
+              <li>
+                <strong>External Sandhi</strong> - Changes between words
+              </li>
+              <li>
+                <strong>Internal Sandhi</strong> - Changes within words
+              </li>
+            </ul>
+          </div>
+          <SandhiTable />
+        </section>
       </div>
     </div>
   );
-}; 
+};
+
+export default Grammar; 

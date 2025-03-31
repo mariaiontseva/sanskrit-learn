@@ -1,26 +1,59 @@
 .grammar-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 24px;
 }
 
-.grammar-content {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+.grammar-container h2 {
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 1.8rem;
 }
 
 .grammar-section {
   background: white;
   border-radius: 8px;
-  padding: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .grammar-section h3 {
   color: #333;
-  margin-bottom: 20px;
-  font-size: 1.4em;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.grammar-section h4 {
+  color: #444;
+  font-size: 1.2rem;
+  margin: 20px 0 12px;
+}
+
+.grammar-section p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.sandhi-types {
+  margin: 20px 0;
+}
+
+.sandhi-types ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sandhi-types li {
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.sandhi-types strong {
+  color: #333;
+  margin-right: 8px;
 }
 
 .grammar-table {
@@ -51,13 +84,25 @@
   color: #666;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .grammar-container {
-    padding: 10px;
+    padding: 16px;
   }
 
   .grammar-section {
-    padding: 15px;
+    padding: 16px;
+  }
+
+  .grammar-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .grammar-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .grammar-section h4 {
+    font-size: 1.1rem;
   }
 
   .grammar-table th,
