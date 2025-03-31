@@ -279,13 +279,13 @@ export const Dictionary: React.FC = () => {
           <button 
             onClick={handleSearch} 
             disabled={isLoading || !searchTerm.trim()} 
-            className="search-button"
+            className={`search-button ${isLoading ? 'loading' : ''}`}
           >
-            {isLoading ? 'Searching...' : 'Search'}
+            {isLoading ? '' : 'Search'}
           </button>
         </div>
         <div className="input-guide">
-          <span className="input-guide-label">Input formats:</span>
+          <span className="input-guide-label">Input formats</span>
           <span className="input-format">IAST (ātman)</span>
           <span className="input-separator">•</span>
           <span className="input-format">Velthuis (aatman)</span>
