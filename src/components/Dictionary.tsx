@@ -27,6 +27,13 @@ const DICTIONARIES: DictionaryInfo[] = [
   }
 ];
 
+// IAST to SLP1 conversion map
+const iastToSlp1Map: { [key: string]: string } = {
+  'ā': 'A', 'ī': 'I', 'ū': 'U', 'ṛ': 'f', 'ṝ': 'F', 'ḷ': 'x', 'ḹ': 'X',
+  'ṃ': 'M', 'ḥ': 'H', 'ś': 'S', 'ṣ': 'z', 'ñ': 'Y', 'ṅ': 'N', 'ṇ': 'R',
+  'ṭ': 'w', 'ḍ': 'q'
+};
+
 export const Dictionary: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState<string>('');
@@ -35,37 +42,61 @@ export const Dictionary: React.FC = () => {
   const [selectedDict, setSelectedDict] = useState<string>(DICTIONARIES[0].id);
   const addWord = useVocabularyStore((state) => state.addWord);
 
+  // Convert IAST to SLP1
+  const convertToSlp1 = (text: string): string => {
+    let result = text;
+    Object.entries(iastToSlp1Map).forEach(([iast, slp1]) => {
+      result = result.replace(new RegExp(iast, 'g'), slp1);
+    });
+    return result;
+  };
+
+  const searchDictionary = async (term: string, inputType: 'IAST' | 'SLP1') => {
+    const dictionary = DICTIONARIES.find(d => d.id === selectedDict);
+    if (!dictionary) {
+      throw new Error('Selected dictionary not found');
+    }
+
+    const response = await fetch(dictionary.baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        key: term,
+        input: inputType,
+        output: 'IAST',
+        filter: 'deva',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.text();
+    if (data.includes('Not Found') || data.trim() === '') {
+      return null;
+    }
+    return data;
+  };
+
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
     
     setIsLoading(true);
     setError(null);
     try {
-      const dictionary = DICTIONARIES.find(d => d.id === selectedDict);
-      if (!dictionary) {
-        throw new Error('Selected dictionary not found');
-      }
-
-      const response = await fetch(dictionary.baseUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          key: searchTerm,
-          input: 'IAST',
-          output: 'IAST',
-          filter: 'deva',
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.text();
+      // First try with IAST
+      let data = await searchDictionary(searchTerm, 'IAST');
       
-      if (data.includes('Not Found') || data.trim() === '') {
+      // If not found, try with SLP1
+      if (!data) {
+        const searchTermSlp1 = convertToSlp1(searchTerm);
+        data = await searchDictionary(searchTermSlp1, 'SLP1');
+      }
+
+      if (!data) {
         setError(`No results found for "${searchTerm}"`);
         setSearchResult('');
       } else {
@@ -79,10 +110,10 @@ export const Dictionary: React.FC = () => {
         // Create a word object
         const wordToAdd: Omit<VocabularyWord, 'dateAdded'> = {
           sanskrit: searchTerm,
-          transliteration: searchTerm, // Store the IAST version
+          transliteration: searchTerm, // Store the original input
           meaning: textContent.trim(),
           partOfSpeech: 'unknown', // Default value
-          notes: `Added from ${dictionary.name}`
+          notes: `Added from ${DICTIONARIES.find(d => d.id === selectedDict)?.name}`
         };
 
         // Add to vocabulary
@@ -116,7 +147,7 @@ export const Dictionary: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter Sanskrit word in IAST..."
+          placeholder="Enter Sanskrit word (IAST or simple)..."
           className="search-input"
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
@@ -130,10 +161,10 @@ export const Dictionary: React.FC = () => {
       </div>
 
       <div className="transliteration-guide">
-        <h3>Enter Sanskrit words using IAST:</h3>
+        <h3>Enter Sanskrit words using either:</h3>
         <div className="input-methods">
           <div className="input-method">
-            <h4>Examples:</h4>
+            <h4>IAST:</h4>
             <ul>
               <li>Long vowels: ā, ī, ū</li>
               <li>Retroflex: ṭ, ḍ, ṇ</li>
@@ -143,13 +174,13 @@ export const Dictionary: React.FC = () => {
             </ul>
           </div>
           <div className="input-method">
-            <h4>Common Words:</h4>
+            <h4>Simple (Harvard-Kyoto):</h4>
             <ul>
-              <li>kṛṣṇa</li>
-              <li>ātman</li>
-              <li>dharma</li>
-              <li>śānti</li>
-              <li>jñāna</li>
+              <li>Long vowels: A, I, U</li>
+              <li>Examples:</li>
+              <li>Atman (for ātman)</li>
+              <li>kRSNa (for kṛṣṇa)</li>
+              <li>zAnti (for śānti)</li>
             </ul>
           </div>
         </div>
