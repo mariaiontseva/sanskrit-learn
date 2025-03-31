@@ -27,27 +27,11 @@ const DICTIONARIES: DictionaryInfo[] = [
   }
 ];
 
-// IAST to SLP1 conversion map (ordered by length and priority)
-const iastToSlp1Conversions = [
-  // First convert characters that could be part of other characters
-  ['ṝ', 'F'],
-  ['ṛ', 'f'],
-  ['ḹ', 'X'],
-  ['ḷ', 'x'],
-  // Then convert other special characters
-  ['ā', 'A'],
-  ['ī', 'I'],
-  ['ū', 'U'],
-  ['ṃ', 'M'],
-  ['ḥ', 'H'],
-  ['ś', 'S'],
-  ['ṣ', 'z'],
-  ['ñ', 'Y'],
-  ['ṅ', 'N'],
-  ['ṇ', 'R'],
-  ['ṭ', 'w'],
-  ['ḍ', 'q']
-];
+// IAST characters that indicate the input is in IAST format
+const iastCharacters = ['ā', 'ī', 'ū', 'ṛ', 'ṝ', 'ḷ', 'ḹ', 'ṃ', 'ḥ', 'ś', 'ṣ', 'ñ', 'ṅ', 'ṇ', 'ṭ', 'ḍ'];
+
+// SLP1 characters that indicate the input is in SLP1 format
+const slp1Characters = ['A', 'I', 'U', 'f', 'F', 'x', 'X', 'M', 'H', 'S', 'z', 'Y', 'N', 'R', 'w', 'q'];
 
 export const Dictionary: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -57,14 +41,14 @@ export const Dictionary: React.FC = () => {
   const [selectedDict, setSelectedDict] = useState<string>(DICTIONARIES[0].id);
   const addWord = useVocabularyStore((state) => state.addWord);
 
-  // Convert IAST to SLP1
-  const convertToSlp1 = (text: string): string => {
-    let result = text;
-    // Apply conversions in order
-    iastToSlp1Conversions.forEach(([iast, slp1]) => {
-      result = result.replace(new RegExp(iast, 'g'), slp1);
-    });
-    return result;
+  // Detect input format
+  const detectInputFormat = (text: string): 'IAST' | 'SLP1' | null => {
+    const hasIastChars = iastCharacters.some(char => text.includes(char));
+    const hasSlp1Chars = slp1Characters.some(char => text.includes(char));
+    
+    if (hasIastChars) return 'IAST';
+    if (hasSlp1Chars) return 'SLP1';
+    return null; // Simple ASCII text
   };
 
   const searchDictionary = async (term: string, inputType: 'IAST' | 'SLP1') => {
@@ -103,13 +87,13 @@ export const Dictionary: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // First try with IAST
-      let data = await searchDictionary(searchTerm, 'IAST');
+      // Detect input format
+      const detectedFormat = detectInputFormat(searchTerm);
       
-      // If not found, try with SLP1
+      // Try both formats
+      let data = await searchDictionary(searchTerm, 'SLP1');
       if (!data) {
-        const searchTermSlp1 = convertToSlp1(searchTerm);
-        data = await searchDictionary(searchTermSlp1, 'SLP1');
+        data = await searchDictionary(searchTerm, 'IAST');
       }
 
       if (!data) {
@@ -126,9 +110,9 @@ export const Dictionary: React.FC = () => {
         // Create a word object
         const wordToAdd: Omit<VocabularyWord, 'dateAdded'> = {
           sanskrit: searchTerm,
-          transliteration: searchTerm, // Store the original input
+          transliteration: searchTerm,
           meaning: textContent.trim(),
-          partOfSpeech: 'unknown', // Default value
+          partOfSpeech: 'unknown',
           notes: `Added from ${DICTIONARIES.find(d => d.id === selectedDict)?.name}`
         };
 
@@ -163,7 +147,7 @@ export const Dictionary: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter Sanskrit word (IAST or simple)..."
+          placeholder="Enter Sanskrit word (IAST or SLP1)..."
           className="search-input"
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
@@ -190,12 +174,12 @@ export const Dictionary: React.FC = () => {
             </ul>
           </div>
           <div className="input-method">
-            <h4>Simple (Harvard-Kyoto):</h4>
+            <h4>SLP1:</h4>
             <ul>
               <li>Long vowels: A, I, U</li>
               <li>Examples:</li>
-              <li>Atman (for ātman)</li>
               <li>kRSNa (for kṛṣṇa)</li>
+              <li>Atman (for ātman)</li>
               <li>zAnti (for śānti)</li>
             </ul>
           </div>
