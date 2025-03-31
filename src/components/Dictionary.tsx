@@ -27,12 +27,27 @@ const DICTIONARIES: DictionaryInfo[] = [
   }
 ];
 
-// IAST to SLP1 conversion map
-const iastToSlp1Map: { [key: string]: string } = {
-  'ā': 'A', 'ī': 'I', 'ū': 'U', 'ṛ': 'f', 'ṝ': 'F', 'ḷ': 'x', 'ḹ': 'X',
-  'ṃ': 'M', 'ḥ': 'H', 'ś': 'S', 'ṣ': 'z', 'ñ': 'Y', 'ṅ': 'N', 'ṇ': 'R',
-  'ṭ': 'w', 'ḍ': 'q'
-};
+// IAST to SLP1 conversion map (ordered by length and priority)
+const iastToSlp1Conversions = [
+  // First convert characters that could be part of other characters
+  ['ṝ', 'F'],
+  ['ṛ', 'f'],
+  ['ḹ', 'X'],
+  ['ḷ', 'x'],
+  // Then convert other special characters
+  ['ā', 'A'],
+  ['ī', 'I'],
+  ['ū', 'U'],
+  ['ṃ', 'M'],
+  ['ḥ', 'H'],
+  ['ś', 'S'],
+  ['ṣ', 'z'],
+  ['ñ', 'Y'],
+  ['ṅ', 'N'],
+  ['ṇ', 'R'],
+  ['ṭ', 'w'],
+  ['ḍ', 'q']
+];
 
 export const Dictionary: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +60,8 @@ export const Dictionary: React.FC = () => {
   // Convert IAST to SLP1
   const convertToSlp1 = (text: string): string => {
     let result = text;
-    Object.entries(iastToSlp1Map).forEach(([iast, slp1]) => {
+    // Apply conversions in order
+    iastToSlp1Conversions.forEach(([iast, slp1]) => {
       result = result.replace(new RegExp(iast, 'g'), slp1);
     });
     return result;
