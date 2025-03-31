@@ -64,6 +64,21 @@ const hasIastCharacters = (text: string): boolean => {
   return hasIast;
 };
 
+// Check if input might be Velthuis
+const hasVelthuis = (text: string): boolean => {
+  const velthuis = /aa|ii|uu|\.r|\.l|\.m|\.h|sh|\.s|~n|"n|\.n|\.t|\.d/.test(text);
+  console.log('Checking for Velthuis:', text, velthuis);
+  return velthuis;
+};
+
+// Check if input might be SLP1
+const isSlp1 = (text: string): boolean => {
+  // SLP1 uses uppercase letters for long vowels and special characters
+  const slp1 = /[AIUFXMHSZYNRWQ]/.test(text);
+  console.log('Checking for SLP1:', text, slp1);
+  return slp1;
+};
+
 // Convert IAST to SLP1
 const convertIastToSlp1 = (text: string): string => {
   let result = '';
@@ -76,11 +91,13 @@ const convertIastToSlp1 = (text: string): string => {
     // Try to match longer patterns first
     for (let len = 4; len > 0; len--) {
       const substr = text.substr(i, len);
-      if (iastToSlp1Map[substr]) {
-        result += iastToSlp1Map[substr];
+      if (iastToSlp1Map[substr.toLowerCase()]) {
+        // If the original character was uppercase, capitalize the first letter of the result
+        const converted = iastToSlp1Map[substr.toLowerCase()];
+        result += substr === substr.toUpperCase() ? converted.toUpperCase() : converted;
         i += substr.length;
         found = true;
-        console.log(`Converted "${substr}" to "${iastToSlp1Map[substr]}"`);
+        console.log(`Converted "${substr}" to "${converted}"`);
         break;
       }
     }
@@ -108,11 +125,14 @@ const convertVelthToSlp1 = (text: string): string => {
     // Try to match longer patterns first (like 'aa', 'sh', etc.)
     for (let len = 4; len > 0; len--) {
       const substr = text.substr(i, len);
-      if (velthToSlp1Map[substr]) {
-        result += velthToSlp1Map[substr];
+      const lowerSubstr = substr.toLowerCase();
+      if (velthToSlp1Map[lowerSubstr]) {
+        // If the original character was uppercase, capitalize the first letter of the result
+        const converted = velthToSlp1Map[lowerSubstr];
+        result += substr === substr.toUpperCase() ? converted.toUpperCase() : converted;
         i += substr.length;
         found = true;
-        console.log(`Converted "${substr}" to "${velthToSlp1Map[substr]}"`);
+        console.log(`Converted "${substr}" to "${converted}"`);
         break;
       }
     }
@@ -142,15 +162,24 @@ export const Dictionary: React.FC = () => {
       throw new Error('Selected dictionary not found');
     }
 
-    // Try IAST first, then Velthuis
-    const isIast = hasIastCharacters(term);
-    console.log('Input term:', term, 'Is IAST:', isIast);
-    
+    // Determine the input format and convert accordingly
     let slp1Term;
-    if (isIast) {
+    if (isSlp1(term)) {
+      // If it's already SLP1, use it as is
+      slp1Term = term;
+      console.log('Using direct SLP1 input:', slp1Term);
+    } else if (hasIastCharacters(term)) {
+      // If it contains IAST characters, convert from IAST
       slp1Term = convertIastToSlp1(term);
-    } else {
+    } else if (hasVelthuis(term)) {
+      // If it contains Velthuis patterns, convert from Velthuis
       slp1Term = convertVelthToSlp1(term);
+    } else {
+      // Try Velthuis first, then IAST if that doesn't change anything
+      slp1Term = convertVelthToSlp1(term);
+      if (slp1Term === term) {
+        slp1Term = convertIastToSlp1(term);
+      }
     }
     
     console.log('Final SLP1 term:', slp1Term);
