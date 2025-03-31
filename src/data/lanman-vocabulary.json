@@ -1,0 +1,94 @@
+{
+  "words": [
+    {
+      "sanskrit": "अग्निः",
+      "transliteration": "agniḥ",
+      "meaning": "fire",
+      "partOfSpeech": "masculine noun",
+      "root": "अग्",
+      "chapter": 1,
+      "notes": "One of the most important Vedic deities"
+    },
+    {
+      "sanskrit": "अस्ति",
+      "transliteration": "asti",
+      "meaning": "is, exists",
+      "partOfSpeech": "verb",
+      "root": "अस्",
+      "chapter": 1,
+      "notes": "Present tense, third person singular"
+    },
+    {
+      "sanskrit": "भवति",
+      "transliteration": "bhavati",
+      "meaning": "becomes, is",
+      "partOfSpeech": "verb",
+      "root": "भू",
+      "chapter": 1,
+      "notes": "Present tense, third person singular"
+    },
+    {
+      "sanskrit": "देवः",
+      "transliteration": "devaḥ",
+      "meaning": "god, deity",
+      "partOfSpeech": "masculine noun",
+      "root": "दिव्",
+      "chapter": 1,
+      "notes": "Nominative singular"
+    },
+    {
+      "sanskrit": "धर्मः",
+      "transliteration": "dharmaḥ",
+      "meaning": "duty, law, righteousness",
+      "partOfSpeech": "masculine noun",
+      "root": "धृ",
+      "chapter": 1,
+      "notes": "One of the central concepts in Indian philosophy"
+    },
+    {
+      "sanskrit": "गच्छति",
+      "transliteration": "gacchati",
+      "meaning": "goes",
+      "partOfSpeech": "verb",
+      "root": "गम्",
+      "chapter": 1,
+      "notes": "Present tense, third person singular"
+    },
+    {
+      "sanskrit": "गुरुः",
+      "transliteration": "guruḥ",
+      "meaning": "teacher, preceptor",
+      "partOfSpeech": "masculine noun",
+      "root": "गुर्",
+      "chapter": 1,
+      "notes": "Nominative singular"
+    },
+    {
+      "sanskrit": "हरिः",
+      "transliteration": "hariḥ",
+      "meaning": "Vishnu, Krishna",
+      "partOfSpeech": "masculine noun",
+      "root": "हृ",
+      "chapter": 1,
+      "notes": "A name of Vishnu"
+    },
+    {
+      "sanskrit": "इन्द्रः",
+      "transliteration": "indraḥ",
+      "meaning": "Indra, king of gods",
+      "partOfSpeech": "masculine noun",
+      "root": "इद्",
+      "chapter": 1,
+      "notes": "Chief of the Vedic gods"
+    },
+    {
+      "sanskrit": "कृष्णः",
+      "transliteration": "kṛṣṇaḥ",
+      "meaning": "Krishna, dark",
+      "partOfSpeech": "masculine noun",
+      "root": "कृष्",
+      "chapter": 1,
+      "notes": "A major deity in Hinduism"
+    }
+  ]
+} 

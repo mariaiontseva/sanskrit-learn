@@ -1,0 +1,152 @@
+.dictionary-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dictionary-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+}
+
+.search-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #357abd;
+}
+
+.search-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.transliteration-guide {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.transliteration-guide h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.transliteration-guide ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.transliteration-guide li {
+  margin: 5px 0;
+  color: #666;
+}
+
+.selected-dictionary {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #e8f4ff;
+  border-radius: 4px;
+  color: #2c5282;
+}
+
+.error-message {
+  color: #e53e3e;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fff5f5;
+  border-radius: 4px;
+  border: 1px solid #feb2b2;
+}
+
+.result-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the dictionary results */
+.result-section .word {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.result-section .sanskrit {
+  font-size: 1.5em;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.result-section .transliteration {
+  color: #718096;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.result-section .meaning {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.result-section .grammar {
+  color: #805ad5;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.result-section .root {
+  color: #38a169;
+  margin-top: 5px;
+}
+
+.result-section .notes {
+  color: #718096;
+  font-style: italic;
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 2px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .dictionary-container {
+    padding: 15px;
+  }
+  
+  .search-input,
+  .dictionary-select {
+    font-size: 14px;
+  }
+} 
