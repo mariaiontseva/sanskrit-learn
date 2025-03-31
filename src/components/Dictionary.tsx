@@ -27,18 +27,9 @@ const DICTIONARIES: DictionaryInfo[] = [
   }
 ];
 
-// IAST to SLP1 conversion map
-const iastToSlp1Map: { [key: string]: string } = {
-  'ā': 'A', 'ī': 'I', 'ū': 'U', 'ṛ': 'f', 'ṝ': 'F', 'ḷ': 'x', 'ḹ': 'X',
-  'ṃ': 'M', 'ḥ': 'H', 'ś': 'S', 'ṣ': 'z', 'ñ': 'Y', 'ṅ': 'N', 'ṇ': 'R',
-  'ṭ': 'w', 'ḍ': 'q'
-};
-
-// SLP1 to IAST conversion map
-const slp1ToIastMap: { [key: string]: string } = {
-  'A': 'ā', 'I': 'ī', 'U': 'ū', 'f': 'ṛ', 'F': 'ṝ', 'x': 'ḷ', 'X': 'ḹ',
-  'M': 'ṃ', 'H': 'ḥ', 'S': 'ś', 'z': 'ṣ', 'Y': 'ñ', 'N': 'ṅ', 'R': 'ṇ',
-  'w': 'ṭ', 'q': 'ḍ'
+// Check if input contains IAST characters
+const hasIastCharacters = (text: string): boolean => {
+  return /[āīūṛṝḷḹṃḥśṣñṅṇṭḍ]/.test(text);
 };
 
 export const Dictionary: React.FC = () => {
@@ -49,29 +40,13 @@ export const Dictionary: React.FC = () => {
   const [selectedDict, setSelectedDict] = useState<string>(DICTIONARIES[0].id);
   const addWord = useVocabularyStore((state) => state.addWord);
 
-  // Convert IAST to SLP1
-  const convertToSlp1 = (text: string): string => {
-    let result = text;
-    Object.entries(iastToSlp1Map).forEach(([iast, slp1]) => {
-      result = result.replace(new RegExp(iast, 'g'), slp1);
-    });
-    return result;
-  };
-
-  // Convert SLP1 to IAST
-  const convertToIast = (text: string): string => {
-    let result = text;
-    Object.entries(slp1ToIastMap).forEach(([slp1, iast]) => {
-      result = result.replace(new RegExp(slp1, 'g'), iast);
-    });
-    return result;
-  };
-
-  const searchDictionary = async (term: string, inputType: 'IAST' | 'SLP1') => {
+  const searchDictionary = async (term: string) => {
     const dictionary = DICTIONARIES.find(d => d.id === selectedDict);
     if (!dictionary) {
       throw new Error('Selected dictionary not found');
     }
+
+    console.log(`Searching for: ${term}`);
 
     const response = await fetch(dictionary.baseUrl, {
       method: 'POST',
@@ -80,7 +55,7 @@ export const Dictionary: React.FC = () => {
       },
       body: new URLSearchParams({
         key: term,
-        input: inputType,
+        input: hasIastCharacters(term) ? 'IAST' : 'VH',  // VH for Velthuis
         output: 'IAST',
         filter: 'deva',
       }),
@@ -91,6 +66,8 @@ export const Dictionary: React.FC = () => {
     }
 
     const data = await response.text();
+    console.log('API Response:', data);
+    
     if (data.includes('Not Found') || data.trim() === '') {
       return null;
     }
@@ -103,24 +80,7 @@ export const Dictionary: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // Always try SLP1 first since the dictionary seems to prefer it
-      let data = await searchDictionary(searchTerm, 'SLP1');
-      let finalSearchTerm = searchTerm;
-
-      // If not found and input has IAST characters, convert to SLP1 and try again
-      if (!data && /[āīūṛṝḷḹṃḥśṣñṅṇṭḍ]/.test(searchTerm)) {
-        const slp1Term = convertToSlp1(searchTerm);
-        console.log('Converting IAST to SLP1:', searchTerm, '->', slp1Term);
-        data = await searchDictionary(slp1Term, 'SLP1');
-        if (data) {
-          finalSearchTerm = searchTerm; // Keep the IAST version for display
-        }
-      }
-
-      // If still not found, try as IAST as a last resort
-      if (!data) {
-        data = await searchDictionary(searchTerm, 'IAST');
-      }
+      const data = await searchDictionary(searchTerm);
 
       if (!data) {
         setError(`No results found for "${searchTerm}"`);
@@ -135,7 +95,7 @@ export const Dictionary: React.FC = () => {
 
         // Create a word object
         const wordToAdd: Omit<VocabularyWord, 'dateAdded'> = {
-          sanskrit: finalSearchTerm,
+          sanskrit: searchTerm,
           transliteration: searchTerm,
           meaning: textContent.trim(),
           partOfSpeech: 'unknown',
@@ -173,7 +133,7 @@ export const Dictionary: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter Sanskrit word (IAST or SLP1)..."
+          placeholder="Enter Sanskrit word..."
           className="search-input"
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
@@ -200,13 +160,13 @@ export const Dictionary: React.FC = () => {
             </ul>
           </div>
           <div className="input-method">
-            <h4>SLP1:</h4>
+            <h4>Velthuis:</h4>
             <ul>
-              <li>Long vowels: A, I, U</li>
+              <li>Long vowels: aa, ii, uu</li>
               <li>Examples:</li>
-              <li>kRSNa (for kṛṣṇa)</li>
-              <li>Atman (for ātman)</li>
-              <li>zAnti (for śānti)</li>
+              <li>aatman (for ātman)</li>
+              <li>kr.s.na (for kṛṣṇa)</li>
+              <li>shaanti (for śānti)</li>
             </ul>
           </div>
         </div>
