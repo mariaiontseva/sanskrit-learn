@@ -4,56 +4,39 @@ import { Dictionary } from './components/Dictionary';
 import { Vocabulary } from './components/Vocabulary';
 import { Grammar } from './components/Grammar';
 
-const App: React.FC = () => {
+function App() {
   const [activeTab, setActiveTab] = useState('dictionary');
 
   return (
     <div className="app">
-      <div className="container">
-        <h1 className="title">संस्कृत Learn Sanskrit</h1>
-        <p className="welcome">Welcome to your Sanskrit learning journey!</p>
-        
-        <div className="tabs">
-          <button 
-            className={`tab ${activeTab === 'dictionary' ? 'active' : ''}`}
-            onClick={() => setActiveTab('dictionary')}
-          >
-            Dictionary
-          </button>
-          <button 
-            className={`tab ${activeTab === 'vocabulary' ? 'active' : ''}`}
-            onClick={() => setActiveTab('vocabulary')}
-          >
-            Vocabulary
-          </button>
-          <button 
-            className={`tab ${activeTab === 'grammar' ? 'active' : ''}`}
-            onClick={() => setActiveTab('grammar')}
-          >
-            Grammar
-          </button>
-          <button 
-            className={`tab ${activeTab === 'phrases' ? 'active' : ''}`}
-            onClick={() => setActiveTab('phrases')}
-          >
-            Phrases
-          </button>
-          <button 
-            className={`tab ${activeTab === 'practice' ? 'active' : ''}`}
-            onClick={() => setActiveTab('practice')}
-          >
-            Practice
-          </button>
-        </div>
+      <nav className="nav-tabs">
+        <button 
+          className={`tab-button ${activeTab === 'dictionary' ? 'active' : ''}`}
+          onClick={() => setActiveTab('dictionary')}
+        >
+          Dictionary
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'vocabulary' ? 'active' : ''}`}
+          onClick={() => setActiveTab('vocabulary')}
+        >
+          Vocabulary
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'grammar' ? 'active' : ''}`}
+          onClick={() => setActiveTab('grammar')}
+        >
+          Grammar
+        </button>
+      </nav>
 
-        <div className="tab-container">
-          {activeTab === 'dictionary' && <Dictionary />}
-          {activeTab === 'vocabulary' && <Vocabulary />}
-          {activeTab === 'grammar' && <Grammar />}
-        </div>
+      <div className="tab-content">
+        {activeTab === 'dictionary' && <Dictionary />}
+        {activeTab === 'vocabulary' && <Vocabulary />}
+        {activeTab === 'grammar' && <Grammar />}
       </div>
     </div>
   );
-};
+}
 
 export default App;

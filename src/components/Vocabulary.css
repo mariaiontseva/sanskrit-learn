@@ -1,59 +1,82 @@
 .vocabulary-container {
-  padding: 20px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .controls {
-  margin-bottom: 20px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
 }
 
 .search-box {
-  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .search-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  flex: 1;
+  padding: 12px 16px;
   font-size: 16px;
+  border: 1px solid #c3c6d4;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #323338;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0073ea;
+  box-shadow: 0 0 0 2px rgba(0, 115, 234, 0.2);
 }
 
 .filter-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #c3c6d4;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #323338;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:hover {
+  border-color: #0073ea;
 }
 
 .vocabulary-stats {
-  margin: 20px 0;
-  color: #666;
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e6e9ef;
+  color: #676879;
   font-size: 14px;
 }
 
 .vocabulary-list {
   display: grid;
-  gap: 15px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
 }
 
 .word-card {
   background: white;
-  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 15px;
-  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
+  cursor: pointer;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
 .word-card:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
@@ -63,157 +86,140 @@
 }
 
 .word-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #e6e9ef;
+  position: relative;
 }
 
-.word-summary {
-  flex: 1;
-}
-
-.word-summary h3 {
-  margin: 0;
-  color: #2d3748;
-  font-size: 1.25rem;
+.sanskrit-word {
+  font-size: 20px;
+  font-weight: 500;
+  color: #323338;
+  margin-bottom: 4px;
+  background: #fff9c4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .word-preview {
-  margin: 5px 0 0;
-  color: #4a5568;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.remove-button {
-  background: none;
-  border: none;
-  color: #a0aec0;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0 5px;
-  line-height: 1;
-  transition: color 0.2s;
-}
-
-.remove-button:hover {
-  color: #e53e3e;
+  color: #676879;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .word-details {
-  border-top: 1px solid #e2e8f0;
-  margin-top: 10px;
-  padding-top: 10px;
+  padding: 16px;
+  display: none;
+}
+
+.word-card.expanded .word-details {
+  display: block;
 }
 
 .transliteration {
-  color: #718096;
+  color: #676879;
+  font-size: 14px;
   font-style: italic;
-  margin: 5px 0;
-  font-size: 0.9rem;
+  margin-bottom: 12px;
+  background: #fff9c4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.devanagari {
+  background: #fff9c4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 18px;
 }
 
 .meaning {
-  color: #2d3748;
+  color: #323338;
+  font-size: 14px;
   line-height: 1.6;
-  margin: 10px 0;
+  margin-bottom: 16px;
 }
 
-.word-metadata {
+.metadata {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.part-of-speech {
-  color: #805ad5;
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 2px 8px;
-  background: #f8f4ff;
-  border-radius: 4px;
-}
-
-.root {
-  color: #38a169;
-  font-size: 0.9rem;
-  padding: 2px 8px;
-  background: #f0fff4;
-  border-radius: 4px;
-}
-
-.chapter {
-  color: #3182ce;
-  font-size: 0.9rem;
-  padding: 2px 8px;
-  background: #ebf8ff;
-  border-radius: 4px;
-}
-
+.part-of-speech,
+.root,
+.chapter,
 .notes {
-  color: #718096;
-  font-style: italic;
-  margin: 10px 0;
-  padding-left: 10px;
-  border-left: 2px solid #e2e8f0;
-  font-size: 0.9rem;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  background: #f6f7fb;
+  color: #676879;
 }
 
 .date-added {
-  color: #a0aec0;
-  font-size: 0.8rem;
-  margin-top: 10px;
+  color: #676879;
+  font-size: 12px;
+  margin-top: 12px;
 }
 
-.vocabulary-header {
-  text-align: center;
-  margin-bottom: 30px;
+.remove-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #f6f7fb;
+  color: #676879;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0;
 }
 
-.vocabulary-header h2 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-  font-size: 24px;
+.word-card:hover .remove-button {
+  opacity: 1;
 }
 
-.vocabulary-header p {
-  color: #7f8c8d;
-  font-size: 16px;
+.remove-button:hover {
+  background: #ffebee;
+  color: #c4281c;
 }
 
-.vocabulary-controls {
-  margin-bottom: 30px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 40px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  color: #7f8c8d;
-}
-
-.empty-state p {
-  margin: 10px 0;
-}
-
-.empty-state p:first-child {
-  font-size: 18px;
-  color: #2c3e50;
-}
-
+/* Responsive styles */
 @media (max-width: 768px) {
-  .vocabulary-container {
-    padding: 15px;
-  }
-
   .vocabulary-list {
     grid-template-columns: 1fr;
   }
 
-  .word-sanskrit {
-    font-size: 20px;
+  .word-card {
+    margin-bottom: 16px;
+  }
+
+  .controls {
+    padding: 12px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    width: 100%;
   }
 } 
