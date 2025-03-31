@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sanskrit-learn/static/css/main.a9666277.css",
-    "main.js": "/sanskrit-learn/static/js/main.ccc5658d.js",
+    "main.css": "/sanskrit-learn/static/css/main.6de71d54.css",
+    "main.js": "/sanskrit-learn/static/js/main.fe4f0c66.js",
     "static/js/453.fe792d33.chunk.js": "/sanskrit-learn/static/js/453.fe792d33.chunk.js",
     "index.html": "/sanskrit-learn/index.html",
-    "main.a9666277.css.map": "/sanskrit-learn/static/css/main.a9666277.css.map",
-    "main.ccc5658d.js.map": "/sanskrit-learn/static/js/main.ccc5658d.js.map",
+    "main.6de71d54.css.map": "/sanskrit-learn/static/css/main.6de71d54.css.map",
+    "main.fe4f0c66.js.map": "/sanskrit-learn/static/js/main.fe4f0c66.js.map",
     "453.fe792d33.chunk.js.map": "/sanskrit-learn/static/js/453.fe792d33.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a9666277.css",
-    "static/js/main.ccc5658d.js"
+    "static/css/main.6de71d54.css",
+    "static/js/main.fe4f0c66.js"
   ]
 }
