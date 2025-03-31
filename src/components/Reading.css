@@ -1,0 +1,78 @@
+.reading-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.reading-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.reading-tab {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #e6e9ef;
+  border-radius: 6px;
+  background: white;
+  color: #676879;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reading-tab:hover {
+  border-color: #0073ea;
+  color: #0073ea;
+}
+
+.reading-tab.active {
+  background: #0073ea;
+  color: white;
+  border-color: #0073ea;
+}
+
+.reading-content {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.text-section h2 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #323338;
+}
+
+.text-info {
+  color: #676879;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.sanskrit-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #323338;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .reading-container {
+    padding: 16px;
+  }
+  
+  .reading-tabs {
+    flex-direction: column;
+  }
+  
+  .reading-tab {
+    width: 100%;
+    text-align: center;
+  }
+} 

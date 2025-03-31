@@ -3,6 +3,7 @@ import './App.css';
 import { Dictionary } from './components/Dictionary';
 import { Vocabulary } from './components/Vocabulary';
 import { Grammar } from './components/Grammar';
+import { Reading } from './components/Reading';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dictionary');
@@ -28,12 +29,19 @@ function App() {
         >
           Grammar
         </button>
+        <button 
+          className={`tab-button ${activeTab === 'reading' ? 'active' : ''}`}
+          onClick={() => setActiveTab('reading')}
+        >
+          Reading
+        </button>
       </nav>
 
       <div className="tab-content">
         {activeTab === 'dictionary' && <Dictionary />}
         {activeTab === 'vocabulary' && <Vocabulary />}
         {activeTab === 'grammar' && <Grammar />}
+        {activeTab === 'reading' && <Reading />}
       </div>
     </div>
   );
