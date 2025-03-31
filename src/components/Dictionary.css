@@ -126,7 +126,7 @@
 
 .input-format {
   color: #676879;
-  background: white;
+  background: #fff9c4;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 13px;
@@ -155,12 +155,13 @@
 }
 
 .result-section {
-  margin-top: 24px;
+  margin: 24px auto 0 auto;
   padding: 24px;
   background-color: #ffffff;
   border: 1px solid #e6e9ef;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
 }
 
 /* Style the dictionary results */

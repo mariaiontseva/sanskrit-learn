@@ -1,6 +1,7 @@
 .vocabulary-container {
-  max-width: 1200px;
+  max-width: 600px;
   margin: 0 auto;
+  padding: 24px;
 }
 
 .controls {
@@ -9,6 +10,9 @@
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-bottom: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .search-box {
@@ -60,9 +64,12 @@
 }
 
 .vocabulary-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .word-card {
@@ -73,6 +80,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .word-card:hover {
@@ -81,7 +89,7 @@
 }
 
 .word-card.expanded {
-  grid-column: 1 / -1;
+  width: 100%;
   cursor: default;
 }
 
