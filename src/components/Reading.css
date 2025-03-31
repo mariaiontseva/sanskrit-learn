@@ -134,27 +134,29 @@
   line-height: 1.8;
   color: #323338;
   margin-bottom: 12px;
-  background: #fff9c4;
   padding: 12px;
   border-radius: 6px;
 }
 
 .transliteration {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #323338;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #000000;
+  font-weight: 600;
   margin-bottom: 12px;
-  background: #f5f9ff;
+  background: #fff9c4;
   padding: 12px;
   border-radius: 6px;
   font-family: 'Times New Roman', serif;
 }
 
 .translation {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #676879;
-  font-style: italic;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-style: normal;
 }
 
 .notes {
