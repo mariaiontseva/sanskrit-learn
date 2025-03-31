@@ -252,67 +252,46 @@ export const Dictionary: React.FC = () => {
 
   return (
     <div className="dictionary-container">
-      <select 
-        className="dictionary-select"
-        value={selectedDict}
-        onChange={(e) => setSelectedDict(e.target.value)}
-      >
-        {DICTIONARIES.map(dict => (
-          <option key={dict.id} value={dict.id}>
-            {dict.name}
-          </option>
-        ))}
-      </select>
+      <div className="dictionary-header">
+        <select 
+          className="dictionary-select"
+          value={selectedDict}
+          onChange={(e) => setSelectedDict(e.target.value)}
+        >
+          {DICTIONARIES.map(dict => (
+            <option key={dict.id} value={dict.id}>
+              {dict.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="search-section">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter Sanskrit word (IAST or Velthuis)..."
-          className="search-input"
-          onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-        />
-        <button 
-          onClick={handleSearch} 
-          disabled={isLoading || !searchTerm.trim()} 
-          className="search-button"
-        >
-          {isLoading ? 'Searching...' : 'Search'}
-        </button>
-      </div>
-
-      <div className="transliteration-guide">
-        <h3>Enter Sanskrit words using either:</h3>
-        <div className="input-methods">
-          <div className="input-method">
-            <h4>IAST:</h4>
-            <ul>
-              <li>Long vowels: ā, ī, ū</li>
-              <li>Retroflex: ṭ, ḍ, ṇ</li>
-              <li>Sibilants: ś, ṣ</li>
-              <li>Nasals: ṃ, ṅ, ñ</li>
-              <li>Visarga: ḥ</li>
-            </ul>
-          </div>
-          <div className="input-method">
-            <h4>Velthuis:</h4>
-            <ul>
-              <li>Long vowels: aa, ii, uu</li>
-              <li>Retroflex: .t, .d, .n</li>
-              <li>Sibilants: sh, .s</li>
-              <li>Nasals: .m, "n, ~n</li>
-              <li>Examples:</li>
-              <li>aatman (for ātman)</li>
-              <li>k.r.s.na (for kṛṣṇa)</li>
-              <li>shaanti (for śānti)</li>
-            </ul>
-          </div>
+        <div className="search-wrapper">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search Sanskrit words..."
+            className="search-input"
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+          />
+          <button 
+            onClick={handleSearch} 
+            disabled={isLoading || !searchTerm.trim()} 
+            className="search-button"
+          >
+            {isLoading ? 'Searching...' : 'Search'}
+          </button>
         </div>
-      </div>
-
-      <div className="selected-dictionary">
-        Selected dictionary: {DICTIONARIES.find(d => d.id === selectedDict)?.name}
+        <div className="input-guide">
+          <span className="input-guide-label">Input formats:</span>
+          <span className="input-format">IAST (ātman)</span>
+          <span className="input-separator">•</span>
+          <span className="input-format">Velthuis (aatman)</span>
+          <span className="input-separator">•</span>
+          <span className="input-format">SLP1 (Atman)</span>
+        </div>
       </div>
       
       {error && <div className="error-message">{error}</div>}
