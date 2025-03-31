@@ -4,6 +4,15 @@ import { nalaText } from '../data/nalaText';
 
 export const Reading: React.FC = () => {
   const [activeText, setActiveText] = useState<'nala' | 'ramayana'>('nala');
+  const [expandedSargas, setExpandedSargas] = useState<number[]>([1]); // Start with first sarga expanded
+
+  const toggleSarga = (sargaNumber: number) => {
+    setExpandedSargas(prev => 
+      prev.includes(sargaNumber) 
+        ? prev.filter(num => num !== sargaNumber)
+        : [...prev, sargaNumber]
+    );
+  };
 
   return (
     <div className="reading-container">
@@ -30,23 +39,31 @@ export const Reading: React.FC = () => {
             <div className="sargas">
               {nalaText.map((sarga) => (
                 <div key={sarga.number} className="sarga">
-                  <h3 className="sarga-title">
+                  <h3 
+                    className={`sarga-title ${expandedSargas.includes(sarga.number) ? 'expanded' : ''}`}
+                    onClick={() => toggleSarga(sarga.number)}
+                  >
+                    <span className="sarga-toggle">
+                      {expandedSargas.includes(sarga.number) ? '▼' : '▶'}
+                    </span>
                     Sarga {sarga.number}: {sarga.title}
                   </h3>
-                  <div className="verses">
-                    {sarga.verses.map((verse) => (
-                      <div key={verse.number} className="verse">
-                        <div className="verse-number">Verse {verse.number}</div>
-                        <div className="sanskrit-text">{verse.sanskrit}</div>
-                        {verse.translation && (
-                          <div className="translation">{verse.translation}</div>
-                        )}
-                        {verse.notes && (
-                          <div className="notes">{verse.notes}</div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  {expandedSargas.includes(sarga.number) && (
+                    <div className="verses">
+                      {sarga.verses.map((verse) => (
+                        <div key={verse.number} className="verse">
+                          <div className="verse-number">Verse {verse.number}</div>
+                          <div className="sanskrit-text">{verse.sanskrit}</div>
+                          {verse.translation && (
+                            <div className="translation">{verse.translation}</div>
+                          )}
+                          {verse.notes && (
+                            <div className="notes">{verse.notes}</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
