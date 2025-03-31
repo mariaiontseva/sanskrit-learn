@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sanskrit-learn/static/css/main.1b265fdf.css",
+    "main.js": "/sanskrit-learn/static/js/main.6b6d3632.js",
+    "static/js/453.fe792d33.chunk.js": "/sanskrit-learn/static/js/453.fe792d33.chunk.js",
+    "index.html": "/sanskrit-learn/index.html",
+    "main.1b265fdf.css.map": "/sanskrit-learn/static/css/main.1b265fdf.css.map",
+    "main.6b6d3632.js.map": "/sanskrit-learn/static/js/main.6b6d3632.js.map",
+    "453.fe792d33.chunk.js.map": "/sanskrit-learn/static/js/453.fe792d33.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1b265fdf.css",
+    "static/js/main.6b6d3632.js"
+  ]
+}
