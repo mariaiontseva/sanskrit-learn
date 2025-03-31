@@ -55,8 +55,30 @@
   margin-bottom: 24px;
 }
 
+.sarga {
+  margin-bottom: 48px;
+}
+
+.sarga:last-child {
+  margin-bottom: 0;
+}
+
+.sarga-title {
+  font-size: 18px;
+  color: #323338;
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e6e9ef;
+}
+
+.verses {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .verse {
-  margin-bottom: 32px;
+  margin-bottom: 0;
   padding: 16px;
   border: 1px solid #e6e9ef;
   border-radius: 8px;
@@ -122,5 +144,11 @@
 
   .sanskrit-text {
     font-size: 16px;
+  }
+
+  .sarga-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
   }
 } 

@@ -27,17 +27,26 @@ export const Reading: React.FC = () => {
           <div className="text-section">
             <h2>Nala & Damayantī</h2>
             <p className="text-info">From Lanman's Sanskrit Reader (1884)</p>
-            <div className="verses">
-              {nalaText.map((verse) => (
-                <div key={verse.number} className="verse">
-                  <div className="verse-number">Verse {verse.number}</div>
-                  <div className="sanskrit-text">{verse.sanskrit}</div>
-                  {verse.translation && (
-                    <div className="translation">{verse.translation}</div>
-                  )}
-                  {verse.notes && (
-                    <div className="notes">{verse.notes}</div>
-                  )}
+            <div className="sargas">
+              {nalaText.map((sarga) => (
+                <div key={sarga.number} className="sarga">
+                  <h3 className="sarga-title">
+                    Sarga {sarga.number}: {sarga.title}
+                  </h3>
+                  <div className="verses">
+                    {sarga.verses.map((verse) => (
+                      <div key={verse.number} className="verse">
+                        <div className="verse-number">Verse {verse.number}</div>
+                        <div className="sanskrit-text">{verse.sanskrit}</div>
+                        {verse.translation && (
+                          <div className="translation">{verse.translation}</div>
+                        )}
+                        {verse.notes && (
+                          <div className="notes">{verse.notes}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
