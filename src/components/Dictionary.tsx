@@ -27,9 +27,46 @@ const DICTIONARIES: DictionaryInfo[] = [
   }
 ];
 
+// IAST to SLP1 conversion map
+const iastToSlp1Map: { [key: string]: string } = {
+  'ā': 'A', 'ī': 'I', 'ū': 'U', 'ṛ': 'f', 'ṝ': 'F', 'ḷ': 'x', 'ḹ': 'X',
+  'ṃ': 'M', 'ḥ': 'H', 'ś': 'S', 'ṣ': 'z', 'ñ': 'Y', 'ṅ': 'N', 'ṇ': 'R',
+  'ṭ': 'w', 'ḍ': 'q'
+};
+
+// Velthuis to SLP1 conversion map
+const velthToSlp1Map: { [key: string]: string } = {
+  'aa': 'A', 'ii': 'I', 'uu': 'U',
+  '.r': 'f', '.rr': 'F', '.l': 'x', '.ll': 'X',
+  '.m': 'M', '.h': 'H',
+  'sh': 'S', '.s': 'z',
+  '~n': 'Y', '"n': 'N', '.n': 'R',
+  '.t': 'w', '.d': 'q'
+};
+
 // Check if input contains IAST characters
 const hasIastCharacters = (text: string): boolean => {
   return /[āīūṛṝḷḹṃḥśṣñṅṇṭḍ]/.test(text);
+};
+
+// Convert IAST to SLP1
+const convertIastToSlp1 = (text: string): string => {
+  let result = text;
+  Object.entries(iastToSlp1Map).forEach(([iast, slp1]) => {
+    result = result.replace(new RegExp(iast, 'g'), slp1);
+  });
+  return result;
+};
+
+// Convert Velthuis to SLP1
+const convertVelthToSlp1 = (text: string): string => {
+  let result = text;
+  // Sort by length (descending) to handle longer patterns first
+  const patterns = Object.entries(velthToSlp1Map).sort((a, b) => b[0].length - a[0].length);
+  patterns.forEach(([velth, slp1]) => {
+    result = result.replace(new RegExp(velth, 'g'), slp1);
+  });
+  return result;
 };
 
 export const Dictionary: React.FC = () => {
@@ -46,7 +83,9 @@ export const Dictionary: React.FC = () => {
       throw new Error('Selected dictionary not found');
     }
 
-    console.log(`Searching for: ${term}`);
+    // Convert input to SLP1 based on format
+    const slp1Term = hasIastCharacters(term) ? convertIastToSlp1(term) : convertVelthToSlp1(term);
+    console.log(`Converting "${term}" to SLP1: "${slp1Term}"`);
 
     const response = await fetch(dictionary.baseUrl, {
       method: 'POST',
@@ -54,8 +93,8 @@ export const Dictionary: React.FC = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        key: term,
-        input: hasIastCharacters(term) ? 'IAST' : 'VH',  // VH for Velthuis
+        key: slp1Term,
+        input: 'SLP1',
         output: 'IAST',
         filter: 'deva',
       }),
@@ -133,7 +172,7 @@ export const Dictionary: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter Sanskrit word..."
+          placeholder="Enter Sanskrit word (IAST or Velthuis)..."
           className="search-input"
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
@@ -163,9 +202,12 @@ export const Dictionary: React.FC = () => {
             <h4>Velthuis:</h4>
             <ul>
               <li>Long vowels: aa, ii, uu</li>
+              <li>Retroflex: .t, .d, .n</li>
+              <li>Sibilants: sh, .s</li>
+              <li>Nasals: .m, "n, ~n</li>
               <li>Examples:</li>
               <li>aatman (for ātman)</li>
-              <li>kr.s.na (for kṛṣṇa)</li>
+              <li>k.r.s.na (for kṛṣṇa)</li>
               <li>shaanti (for śānti)</li>
             </ul>
           </div>
