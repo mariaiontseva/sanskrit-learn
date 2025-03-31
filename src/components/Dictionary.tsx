@@ -103,22 +103,23 @@ export const Dictionary: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // Try with original input first
-      let data = await searchDictionary(searchTerm, 'IAST');
+      // Always try SLP1 first since the dictionary seems to prefer it
+      let data = await searchDictionary(searchTerm, 'SLP1');
       let finalSearchTerm = searchTerm;
-      
-      // If not found and input looks like SLP1, try with that
-      if (!data && /[AIUFXMHSZYNRW]/.test(searchTerm)) {
-        data = await searchDictionary(searchTerm, 'SLP1');
-        if (data) {
-          finalSearchTerm = convertToIast(searchTerm);
-        }
-      }
-      
-      // If still not found and input was IAST, try SLP1 conversion
+
+      // If not found and input has IAST characters, convert to SLP1 and try again
       if (!data && /[āīūṛṝḷḹṃḥśṣñṅṇṭḍ]/.test(searchTerm)) {
         const slp1Term = convertToSlp1(searchTerm);
+        console.log('Converting IAST to SLP1:', searchTerm, '->', slp1Term);
         data = await searchDictionary(slp1Term, 'SLP1');
+        if (data) {
+          finalSearchTerm = searchTerm; // Keep the IAST version for display
+        }
+      }
+
+      // If still not found, try as IAST as a last resort
+      if (!data) {
+        data = await searchDictionary(searchTerm, 'IAST');
       }
 
       if (!data) {
