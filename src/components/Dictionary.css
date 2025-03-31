@@ -44,11 +44,12 @@
 }
 
 .search-section {
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
   background: white;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
 }
 
 .search-wrapper {
@@ -109,6 +110,8 @@
   font-size: 14px;
   color: #676879;
   border: 1px solid #e6e9ef;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .input-guide-label {
