@@ -81,7 +81,7 @@ export const Vocabulary: React.FC = () => {
           >
             <div className="word-header">
               <div className="word-summary">
-                <h3>{word.sanskrit}</h3>
+                <h3 className="sanskrit-word">{word.sanskrit}</h3>
                 {!expandedCards[word.sanskrit] && (
                   <p className="word-preview">{truncateText(word.meaning)}</p>
                 )}
