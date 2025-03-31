@@ -25,8 +25,8 @@ export const nalaText: Sarga[] = [
       },
       {
         number: 2,
-        sanskrit: "अस्ति विदर्भेषु भीमो नाम राजा महौजसः | सर्वधर्मभृतां श्रेष्ठो नित्यं सत्यपराक्रमः ||",
-        transliteration: "asti vidarbheṣu bhīmo nāma rājā mahaujasaḥ | sarvadharmabhṛtāṃ śreṣṭho nityaṃ satyaparākramaḥ ||",
+        sanskrit: "अस्ति विदर्भेषु भीमो नाम राजा महौजसः |\nसर्वधर्मभृतां श्रेष्ठो नित्यं सत्यपराक्रमः ||",
+        transliteration: "asti vidarbheṣu bhīmo nāma rājā mahaujasaḥ |\nsarvadharmabhṛtāṃ śreṣṭho nityaṃ satyaparākramaḥ ||",
         translation: "There was in Vidarbha a king named Bhīma of great might, foremost among all righteous men, ever devoted to truth and valor.",
       },
       {
