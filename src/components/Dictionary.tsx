@@ -42,12 +42,19 @@ const iastToSlp1Map: { [key: string]: string } = {
 
 // Velthuis to SLP1 conversion map
 const velthToSlp1Map: { [key: string]: string } = {
+  // Special characters
   'aa': 'A', 'ii': 'I', 'uu': 'U',
   '.r': 'f', '.rr': 'F', '.l': 'x', '.ll': 'X',
   '.m': 'M', '.h': 'H',
   'sh': 'S', '.s': 'z',
   '~n': 'Y', '"n': 'N', '.n': 'R',
-  '.t': 'w', '.d': 'q'
+  '.t': 'w', '.d': 'q',
+  // Regular characters
+  'a': 'a', 'i': 'i', 'u': 'u', 'e': 'e', 'o': 'o',
+  't': 't', 'd': 'd', 'n': 'n', 'm': 'm',
+  'k': 'k', 'g': 'g', 'c': 'c', 'j': 'j',
+  'p': 'p', 'b': 'b', 'v': 'v', 'y': 'y',
+  'r': 'r', 'l': 'l', 's': 's', 'h': 'h'
 };
 
 // Check if input contains IAST characters
@@ -91,19 +98,32 @@ const convertIastToSlp1 = (text: string): string => {
 
 // Convert Velthuis to SLP1
 const convertVelthToSlp1 = (text: string): string => {
-  let result = text;
-  // Add debug logging
+  let result = '';
   console.log('Converting Velthuis to SLP1:', text);
-  // Sort by length (descending) to handle longer patterns first
-  const patterns = Object.entries(velthToSlp1Map).sort((a, b) => b[0].length - a[0].length);
-  patterns.forEach(([velth, slp1]) => {
-    const regex = new RegExp(velth, 'g');
-    const matches = text.match(regex);
-    if (matches) {
-      console.log(`Found Velthuis pattern: ${velth} -> ${slp1}`);
+  
+  // Convert character by character to handle overlapping patterns
+  let i = 0;
+  while (i < text.length) {
+    let found = false;
+    // Try to match longer patterns first (like 'aa', 'sh', etc.)
+    for (let len = 4; len > 0; len--) {
+      const substr = text.substr(i, len);
+      if (velthToSlp1Map[substr]) {
+        result += velthToSlp1Map[substr];
+        i += substr.length;
+        found = true;
+        console.log(`Converted "${substr}" to "${velthToSlp1Map[substr]}"`);
+        break;
+      }
     }
-    result = result.replace(regex, slp1);
-  });
+    if (!found) {
+      // If no conversion found, keep the original character
+      result += text[i];
+      console.log(`Keeping original character: ${text[i]}`);
+      i++;
+    }
+  }
+  
   console.log('Result after Velthuis conversion:', result);
   return result;
 };
@@ -122,7 +142,7 @@ export const Dictionary: React.FC = () => {
       throw new Error('Selected dictionary not found');
     }
 
-    // Try both conversion methods and use the one that gives a valid result
+    // Try IAST first, then Velthuis
     const isIast = hasIastCharacters(term);
     console.log('Input term:', term, 'Is IAST:', isIast);
     
@@ -131,11 +151,6 @@ export const Dictionary: React.FC = () => {
       slp1Term = convertIastToSlp1(term);
     } else {
       slp1Term = convertVelthToSlp1(term);
-      // If Velthuis conversion didn't change anything, try IAST anyway
-      if (slp1Term === term) {
-        console.log('Velthuis conversion had no effect, trying IAST conversion');
-        slp1Term = convertIastToSlp1(term);
-      }
     }
     
     console.log('Final SLP1 term:', slp1Term);
