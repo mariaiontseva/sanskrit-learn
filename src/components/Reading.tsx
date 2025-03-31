@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Reading.css';
+import { nalaText } from '../data/nalaText';
 
 export const Reading: React.FC = () => {
   const [activeText, setActiveText] = useState<'nala' | 'ramayana'>('nala');
@@ -26,8 +27,19 @@ export const Reading: React.FC = () => {
           <div className="text-section">
             <h2>Nala & Damayantī</h2>
             <p className="text-info">From Lanman's Sanskrit Reader (1884)</p>
-            <div className="sanskrit-text">
-              {/* Text content will be added here */}
+            <div className="verses">
+              {nalaText.map((verse) => (
+                <div key={verse.number} className="verse">
+                  <div className="verse-number">Verse {verse.number}</div>
+                  <div className="sanskrit-text">{verse.sanskrit}</div>
+                  {verse.translation && (
+                    <div className="translation">{verse.translation}</div>
+                  )}
+                  {verse.notes && (
+                    <div className="notes">{verse.notes}</div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}

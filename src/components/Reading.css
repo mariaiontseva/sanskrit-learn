@@ -55,10 +55,50 @@
   margin-bottom: 24px;
 }
 
+.verse {
+  margin-bottom: 32px;
+  padding: 16px;
+  border: 1px solid #e6e9ef;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.verse:hover {
+  border-color: #0073ea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.verse-number {
+  font-size: 12px;
+  color: #676879;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
 .sanskrit-text {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.8;
   color: #323338;
+  margin-bottom: 12px;
+  background: #fff9c4;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.translation {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #676879;
+  font-style: italic;
+}
+
+.notes {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #676879;
+  padding: 8px;
+  background: #f5f6f8;
+  border-radius: 4px;
 }
 
 /* Responsive styles */
@@ -74,5 +114,13 @@
   .reading-tab {
     width: 100%;
     text-align: center;
+  }
+
+  .verse {
+    padding: 12px;
+  }
+
+  .sanskrit-text {
+    font-size: 16px;
   }
 } 
