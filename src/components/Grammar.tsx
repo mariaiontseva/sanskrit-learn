@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Grammar.css';
 import NounDeclensionTable from './NounDeclensionTable';
 
+// Grammar component with tabs for Sandhi Rules and Noun Declensions
 export const Grammar: React.FC = () => {
   const [activeTab, setActiveTab] = useState('sandhi');
 
