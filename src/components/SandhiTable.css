@@ -63,6 +63,12 @@
   margin: 5px 0;
 }
 
+.grammar-info {
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .sandhi-table {
     font-size: 14px;

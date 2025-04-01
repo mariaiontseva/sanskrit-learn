@@ -1,0 +1,204 @@
+.declension-table-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.control-group select {
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.control-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.declension-table {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr);
+  background: #e9ecef;
+  font-weight: 600;
+  color: #495057;
+}
+
+.header-cell {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr);
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.case-cell {
+  padding: 12px;
+  background: #f8f9fa;
+  font-weight: 500;
+  color: #495057;
+  border-right: 1px solid #dee2e6;
+}
+
+.cell {
+  padding: 12px;
+  text-align: center;
+  border-right: 1px solid #dee2e6;
+}
+
+.cell:last-child {
+  border-right: none;
+}
+
+.cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sanskrit-text {
+  font-size: 1.2rem;
+  color: #212529;
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+}
+
+.stem {
+  color: #495057;
+  font-weight: 500;
+}
+
+.ending {
+  color: #228be6;
+  font-weight: 600;
+  background: #e7f5ff;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ending-label {
+  font-size: 0.9rem;
+  color: #228be6;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Color coding for case groups */
+.table-row:nth-child(1) .case-cell { background: #e3f2fd; } /* nominative */
+.table-row:nth-child(2) .case-cell { background: #e3f2fd; } /* accusative */
+.table-row:nth-child(3) .case-cell { background: #f3e5f5; } /* instrumental */
+.table-row:nth-child(4) .case-cell { background: #f3e5f5; } /* dative */
+.table-row:nth-child(5) .case-cell { background: #f3e5f5; } /* ablative */
+.table-row:nth-child(6) .case-cell { background: #e8f5e9; } /* genitive */
+.table-row:nth-child(7) .case-cell { background: #e8f5e9; } /* locative */
+.table-row:nth-child(8) .case-cell { background: #fff3e0; } /* vocative */
+
+/* Practice mode styles */
+.practice-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: center;
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+}
+
+.practice-input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .control-group {
+    width: 100%;
+  }
+
+  .control-group select {
+    flex: 1;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 150px repeat(3, 1fr);
+  }
+
+  .case-cell {
+    font-size: 0.9rem;
+  }
+
+  .sanskrit-text {
+    font-size: 1.1rem;
+  }
+
+  .ending {
+    font-size: 0.8rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .declension-table-container {
+    box-shadow: none;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  .practice-input {
+    border: none;
+    background: none;
+  }
+
+  .practice-input:focus {
+    box-shadow: none;
+  }
+} 

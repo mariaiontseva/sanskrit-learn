@@ -1,0 +1,56 @@
+.sarga-title {
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sarga-title:hover {
+  background: #e9ecef;
+}
+
+.sarga-header {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sarga-number {
+  font-weight: 600;
+  color: #495057;
+  min-width: 80px;
+}
+
+.sarga-text {
+  flex: 1;
+  font-size: 1.1rem;
+  color: #212529;
+}
+
+.expand-icon {
+  color: #6c757d;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sarga-header {
+    padding: 12px 15px;
+  }
+
+  .sarga-number {
+    min-width: 70px;
+    font-size: 0.9rem;
+  }
+
+  .sarga-text {
+    font-size: 1rem;
+  }
+} 

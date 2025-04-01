@@ -1,0 +1,115 @@
+.text-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.sarga-container {
+  margin-bottom: 30px;
+}
+
+.verses-container {
+  padding: 20px;
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.verse {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.verse:hover {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.verse-number {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.verse-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sanskrit-text {
+  font-size: 1.2rem;
+  color: #212529;
+  line-height: 1.6;
+}
+
+.transliteration {
+  font-size: 1rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.translation {
+  font-size: 1.1rem;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.word-by-word {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #dee2e6;
+}
+
+.word-analysis {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.sanskrit-word {
+  font-weight: 500;
+  color: #212529;
+}
+
+.iast {
+  color: #6c757d;
+}
+
+.grammar {
+  color: #495057;
+  font-style: italic;
+}
+
+.meaning {
+  color: #212529;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .text-container {
+    padding: 15px;
+  }
+
+  .verse {
+    padding: 15px;
+  }
+
+  .sanskrit-text {
+    font-size: 1.1rem;
+  }
+
+  .translation {
+    font-size: 1rem;
+  }
+
+  .word-analysis {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+} 
