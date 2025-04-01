@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Grammar.css';
 import NounDeclensionTable from './NounDeclensionTable';
 
-const Grammar: React.FC = () => {
+export const Grammar: React.FC = () => {
   const [activeTab, setActiveTab] = useState('sandhi');
 
   return (
@@ -78,6 +78,4 @@ const Grammar: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Grammar; 
+}; 
