@@ -59,124 +59,124 @@ const declensionPatterns: Record<StemType, Record<Gender, DeclensionPattern>> = 
   },
   i: {
     masculine: {
-      stem: 'अग्नि',
+      stem: 'agni',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नः' },
-        accusative: { singular: 'म्', dual: 'न्', plural: 'नः' },
-        instrumental: { singular: 'ना', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'ये', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'यः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'यः', dual: 'योः', plural: 'नाम्' },
-        locative: { singular: 'यि', dual: 'योः', plural: 'षु' },
-        vocative: { singular: 'े', dual: 'न्', plural: 'नः' }
+        nominative: { singular: 'ḥ', dual: 'ī', plural: 'ayaḥ' },
+        accusative: { singular: 'm', dual: 'ī', plural: 'īn' },
+        instrumental: { singular: 'inā', dual: 'ibhyām', plural: 'ibhiḥ' },
+        dative: { singular: 'aye', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        ablative: { singular: 'eḥ', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        genitive: { singular: 'eḥ', dual: 'yoḥ', plural: 'īnām' },
+        locative: { singular: 'au', dual: 'yoḥ', plural: 'iṣu' },
+        vocative: { singular: 'e', dual: 'ī', plural: 'ayaḥ' }
       }
     },
     feminine: {
-      stem: 'वधू',
+      stem: 'mati',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नः' },
-        accusative: { singular: 'म्', dual: 'न्', plural: 'नः' },
-        instrumental: { singular: 'या', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'यै', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'यः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'यः', dual: 'योः', plural: 'नाम्' },
-        locative: { singular: 'यि', dual: 'योः', plural: 'षु' },
-        vocative: { singular: 'ः', dual: 'न्', plural: 'नः' }
+        nominative: { singular: 'ḥ', dual: 'ī', plural: 'ayaḥ' },
+        accusative: { singular: 'm', dual: 'ī', plural: 'īḥ' },
+        instrumental: { singular: 'yā', dual: 'ibhyām', plural: 'ibhiḥ' },
+        dative: { singular: 'yai', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        ablative: { singular: 'yāḥ', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        genitive: { singular: 'yāḥ', dual: 'yoḥ', plural: 'īnām' },
+        locative: { singular: 'yām', dual: 'yoḥ', plural: 'iṣu' },
+        vocative: { singular: 'e', dual: 'ī', plural: 'ayaḥ' }
       }
     },
     neuter: {
-      stem: 'वारि',
+      stem: 'vāri',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नि' },
-        accusative: { singular: 'ः', dual: 'न्', plural: 'नि' },
-        instrumental: { singular: 'ना', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'ये', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'यः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'यः', dual: 'योः', plural: 'नाम्' },
-        locative: { singular: 'यि', dual: 'योः', plural: 'षु' },
-        vocative: { singular: 'ः', dual: 'न्', plural: 'नि' }
+        nominative: { singular: '', dual: 'iṇī', plural: 'īṇi' },
+        accusative: { singular: '', dual: 'iṇī', plural: 'īṇi' },
+        instrumental: { singular: 'iṇā', dual: 'ibhyām', plural: 'ibhiḥ' },
+        dative: { singular: 'iṇe', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        ablative: { singular: 'iṇaḥ', dual: 'ibhyām', plural: 'ibhyaḥ' },
+        genitive: { singular: 'iṇaḥ', dual: 'ṇoḥ', plural: 'īṇām' },
+        locative: { singular: 'iṇi', dual: 'ṇoḥ', plural: 'iṣu' },
+        vocative: { singular: 'e', dual: 'iṇī', plural: 'īṇi' }
       }
     }
   },
   u: {
     masculine: {
-      stem: 'भानु',
+      stem: 'bhānu',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नः' },
-        accusative: { singular: 'म्', dual: 'न्', plural: 'नः' },
-        instrumental: { singular: 'ना', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'वे', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'वः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'वः', dual: 'वोः', plural: 'नाम्' },
-        locative: { singular: 'वि', dual: 'वोः', plural: 'षु' },
-        vocative: { singular: 'वे', dual: 'न्', plural: 'नः' }
+        nominative: { singular: 'ḥ', dual: 'ū', plural: 'avaḥ' },
+        accusative: { singular: 'm', dual: 'ū', plural: 'ūn' },
+        instrumental: { singular: 'unā', dual: 'ubhyām', plural: 'ubhiḥ' },
+        dative: { singular: 'ave', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        ablative: { singular: 'oḥ', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        genitive: { singular: 'oḥ', dual: 'voḥ', plural: 'ūnām' },
+        locative: { singular: 'au', dual: 'voḥ', plural: 'uṣu' },
+        vocative: { singular: 'o', dual: 'ū', plural: 'avaḥ' }
       }
     },
     feminine: {
-      stem: 'धेनु',
+      stem: 'dhenu',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नः' },
-        accusative: { singular: 'म्', dual: 'न्', plural: 'नः' },
-        instrumental: { singular: 'वा', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'वै', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'वः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'वः', dual: 'वोः', plural: 'नाम्' },
-        locative: { singular: 'वि', dual: 'वोः', plural: 'षु' },
-        vocative: { singular: 'वे', dual: 'न्', plural: 'नः' }
+        nominative: { singular: 'ḥ', dual: 'ū', plural: 'avaḥ' },
+        accusative: { singular: 'm', dual: 'ū', plural: 'ūḥ' },
+        instrumental: { singular: 'vā', dual: 'ubhyām', plural: 'ubhiḥ' },
+        dative: { singular: 'vai', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        ablative: { singular: 'vāḥ', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        genitive: { singular: 'vāḥ', dual: 'voḥ', plural: 'ūnām' },
+        locative: { singular: 'vām', dual: 'voḥ', plural: 'uṣu' },
+        vocative: { singular: 'o', dual: 'ū', plural: 'avaḥ' }
       }
     },
     neuter: {
-      stem: 'मधु',
+      stem: 'madhu',
       endings: {
-        nominative: { singular: 'ः', dual: 'न्', plural: 'नि' },
-        accusative: { singular: 'ः', dual: 'न्', plural: 'नि' },
-        instrumental: { singular: 'ना', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'वे', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'वः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'वः', dual: 'वोः', plural: 'नाम्' },
-        locative: { singular: 'वि', dual: 'वोः', plural: 'षु' },
-        vocative: { singular: 'वे', dual: 'न्', plural: 'नि' }
+        nominative: { singular: '', dual: 'unī', plural: 'ūni' },
+        accusative: { singular: '', dual: 'unī', plural: 'ūni' },
+        instrumental: { singular: 'unā', dual: 'ubhyām', plural: 'ubhiḥ' },
+        dative: { singular: 'une', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        ablative: { singular: 'unaḥ', dual: 'ubhyām', plural: 'ubhyaḥ' },
+        genitive: { singular: 'unaḥ', dual: 'noḥ', plural: 'ūnām' },
+        locative: { singular: 'uni', dual: 'noḥ', plural: 'uṣu' },
+        vocative: { singular: 'o', dual: 'unī', plural: 'ūni' }
       }
     }
   },
   consonant: {
     masculine: {
-      stem: 'राजन्',
+      stem: 'rājan',
       endings: {
-        nominative: { singular: '्', dual: 'ानौ', plural: 'ानः' },
-        accusative: { singular: 'ानम्', dual: 'ानौ', plural: 'नः' },
-        instrumental: { singular: 'ा', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'े', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'ः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'ः', dual: 'ोः', plural: 'ाम्' },
-        locative: { singular: 'ि', dual: 'ोः', plural: 'सु' },
-        vocative: { singular: 'न्', dual: 'ानौ', plural: 'ानः' }
+        nominative: { singular: '', dual: 'au', plural: 'aḥ' },
+        accusative: { singular: 'am', dual: 'au', plural: 'aḥ' },
+        instrumental: { singular: 'ā', dual: 'bhyām', plural: 'bhiḥ' },
+        dative: { singular: 'e', dual: 'bhyām', plural: 'bhyaḥ' },
+        ablative: { singular: 'aḥ', dual: 'bhyām', plural: 'bhyaḥ' },
+        genitive: { singular: 'aḥ', dual: 'oḥ', plural: 'ām' },
+        locative: { singular: 'i', dual: 'oḥ', plural: 'su' },
+        vocative: { singular: 'an', dual: 'au', plural: 'aḥ' }
       }
     },
     feminine: {
-      stem: 'मातृ',
+      stem: 'mātṛ',
       endings: {
-        nominative: { singular: '्', dual: 'ारौ', plural: 'ारः' },
-        accusative: { singular: 'रम्', dual: 'ारौ', plural: 'ः' },
-        instrumental: { singular: 'ा', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'े', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'ः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'ः', dual: 'ोः', plural: 'णाम्' },
-        locative: { singular: 'ि', dual: 'ोः', plural: 'सु' },
-        vocative: { singular: 'ः', dual: 'ारौ', plural: 'ारः' }
+        nominative: { singular: 'ā', dual: 'arau', plural: 'araḥ' },
+        accusative: { singular: 'aram', dual: 'arau', plural: 'ṝḥ' },
+        instrumental: { singular: 'rā', dual: 'ṛbhyām', plural: 'ṛbhiḥ' },
+        dative: { singular: 're', dual: 'ṛbhyām', plural: 'ṛbhyaḥ' },
+        ablative: { singular: 'uḥ', dual: 'ṛbhyām', plural: 'ṛbhyaḥ' },
+        genitive: { singular: 'uḥ', dual: 'roḥ', plural: 'ṝṇām' },
+        locative: { singular: 'ari', dual: 'roḥ', plural: 'ṛṣu' },
+        vocative: { singular: 'aḥ', dual: 'arau', plural: 'araḥ' }
       }
     },
     neuter: {
-      stem: 'नामन्',
+      stem: 'nāman',
       endings: {
-        nominative: { singular: '्', dual: 'ानी', plural: 'ानि' },
-        accusative: { singular: '्', dual: 'ानी', plural: 'ानि' },
-        instrumental: { singular: 'ा', dual: 'भ्याम्', plural: 'भिः' },
-        dative: { singular: 'े', dual: 'भ्याम्', plural: 'भ्यः' },
-        ablative: { singular: 'ः', dual: 'भ्याम्', plural: 'भ्यः' },
-        genitive: { singular: 'ः', dual: 'ोः', plural: 'नाम्' },
-        locative: { singular: 'ि', dual: 'ोः', plural: 'सु' },
-        vocative: { singular: '्', dual: 'ानी', plural: 'ानि' }
+        nominative: { singular: '', dual: 'nī', plural: 'āni' },
+        accusative: { singular: '', dual: 'nī', plural: 'āni' },
+        instrumental: { singular: 'nā', dual: 'bhyām', plural: 'bhiḥ' },
+        dative: { singular: 'ne', dual: 'bhyām', plural: 'bhyaḥ' },
+        ablative: { singular: 'naḥ', dual: 'bhyām', plural: 'bhyaḥ' },
+        genitive: { singular: 'naḥ', dual: 'noḥ', plural: 'nām' },
+        locative: { singular: 'ni', dual: 'noḥ', plural: 'su' },
+        vocative: { singular: '', dual: 'nī', plural: 'āni' }
       }
     }
   }
