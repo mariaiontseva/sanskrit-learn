@@ -17,7 +17,7 @@ You specialize in:
 Help users understand Sanskrit texts, explain grammar rules, provide cultural context, and answer questions about Indian philosophy and literature.
 Keep your responses clear, informative, and engaging.`;
 
-// Use the Render.com deployment URL
+// Use Render.com API endpoint
 const API_URL = 'https://sanskrit-learn-api.onrender.com/api/chat';
 
 export const AIAssistant: React.FC = () => {
