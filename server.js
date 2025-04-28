@@ -6,6 +6,17 @@ const OpenAI = require('openai');
 // Load environment variables
 dotenv.config();
 
+// Debug environment variables
+console.log('Environment variables at startup:');
+console.log('- NODE_ENV:', process.env.NODE_ENV);
+console.log('- PORT:', process.env.PORT);
+console.log('- OPENAI_API_KEY exists:', !!process.env.OPENAI_API_KEY);
+
+if (!process.env.OPENAI_API_KEY) {
+  console.error('OPENAI_API_KEY environment variable is required');
+  process.exit(1);
+}
+
 const app = express();
 
 // Enhanced logging
@@ -30,20 +41,10 @@ app.use(cors({
 
 app.use(express.json());
 
-// Initialize OpenAI only if API key is present
-let openai = null;
-if (process.env.OPENAI_API_KEY) {
-  try {
-    openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
-    console.log('OpenAI client initialized successfully');
-  } catch (error) {
-    console.error('Error initializing OpenAI client:', error);
-  }
-} else {
-  console.warn('OPENAI_API_KEY not found in environment variables');
-}
+// Initialize OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 // Health check endpoint with detailed status
 app.get('/', (req, res) => {
@@ -52,7 +53,6 @@ app.get('/', (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
     openai_configured: !!process.env.OPENAI_API_KEY,
-    openai_client_initialized: !!openai,
     port: process.env.PORT
   };
   console.log('Health check response:', status);
@@ -63,15 +63,6 @@ app.get('/', (req, res) => {
 app.post('/api/chat', async (req, res) => {
   try {
     console.log('Received chat request');
-    
-    if (!openai || !process.env.OPENAI_API_KEY) {
-      console.error('OpenAI client not initialized or API key missing');
-      return res.status(503).json({
-        error: 'OpenAI service is not configured',
-        timestamp: new Date().toISOString()
-      });
-    }
-
     const { messages, systemPrompt } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
@@ -112,5 +103,4 @@ app.listen(PORT, HOST, () => {
   console.log('- NODE_ENV:', process.env.NODE_ENV);
   console.log('- PORT:', process.env.PORT);
   console.log('- OpenAI API Key configured:', !!process.env.OPENAI_API_KEY);
-  console.log('- OpenAI client initialized:', !!openai);
 }); 
