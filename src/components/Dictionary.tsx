@@ -11,6 +11,11 @@ interface DictionaryInfo {
 
 const DICTIONARIES: DictionaryInfo[] = [
   {
+    id: 'ALL',
+    name: 'All Dictionaries',
+    baseUrl: ''
+  },
+  {
     id: 'LAN',
     name: "Lanman's Sanskrit Reader (1884)",
     baseUrl: 'https://www.sanskrit-lexicon.uni-koeln.de/scans/LANScan/2020/web/webtc/getword.php'
@@ -150,32 +155,23 @@ const convertVelthToSlp1 = (text: string): string => {
 
 export const Dictionary: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResult, setSearchResult] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedDict, setSelectedDict] = useState<string>(DICTIONARIES[0].id);
+  const [selectedDict, setSelectedDict] = useState<string>('ALL');
   const addWord = useVocabularyStore((state) => state.addWord);
 
-  const searchDictionary = async (term: string) => {
-    const dictionary = DICTIONARIES.find(d => d.id === selectedDict);
-    if (!dictionary) {
-      throw new Error('Selected dictionary not found');
-    }
-
+  const searchDictionary = async (term: string, dictionary: DictionaryInfo) => {
     // Determine the input format and convert accordingly
     let slp1Term;
     if (isSlp1(term)) {
-      // If it's already SLP1, use it as is
       slp1Term = term;
       console.log('Using direct SLP1 input:', slp1Term);
     } else if (hasIastCharacters(term)) {
-      // If it contains IAST characters, convert from IAST
       slp1Term = convertIastToSlp1(term);
     } else if (hasVelthuis(term)) {
-      // If it contains Velthuis patterns, convert from Velthuis
       slp1Term = convertVelthToSlp1(term);
     } else {
-      // Try Velthuis first, then IAST if that doesn't change anything
       slp1Term = convertVelthToSlp1(term);
       if (slp1Term === term) {
         slp1Term = convertIastToSlp1(term);
@@ -184,67 +180,63 @@ export const Dictionary: React.FC = () => {
     
     console.log('Final SLP1 term:', slp1Term);
 
-    const response = await fetch(dictionary.baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        key: slp1Term,
-        input: 'SLP1',
-        output: 'IAST',
-        filter: 'deva',
-      }),
-    });
+    try {
+      const response = await fetch(dictionary.baseUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          key: slp1Term,
+          input: 'SLP1',
+          output: 'IAST',
+          filter: 'deva',
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-    }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    const data = await response.text();
-    console.log('API Response:', data);
-    
-    if (data.includes('Not Found') || data.trim() === '') {
-      return null;
+      const data = await response.text();
+      return data;
+    } catch (error) {
+      console.error(`Error searching ${dictionary.name}:`, error);
+      return `Error searching ${dictionary.name}: ${error}`;
     }
-    return data;
   };
 
   const handleSearch = async () => {
-    if (!searchTerm.trim()) return;
-    
+    if (!searchTerm.trim()) {
+      setError('Please enter a search term');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
+    setSearchResults({});
+
     try {
-      const data = await searchDictionary(searchTerm);
+      if (selectedDict === 'ALL') {
+        const results: { [key: string]: string } = {};
+        const searchPromises = DICTIONARIES.slice(1).map(async (dict) => {
+          const result = await searchDictionary(searchTerm, dict);
+          results[dict.id] = result;
+        });
 
-      if (!data) {
-        setError(`No results found for "${searchTerm}"`);
-        setSearchResult('');
+        await Promise.all(searchPromises);
+        setSearchResults(results);
       } else {
-        setSearchResult(data);
-        
-        // Extract text content from HTML
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data;
-        const textContent = tempDiv.textContent || '';
-
-        // Create a word object
-        const wordToAdd: Omit<VocabularyWord, 'dateAdded'> = {
-          sanskrit: searchTerm,
-          transliteration: searchTerm,
-          meaning: textContent.trim(),
-          partOfSpeech: 'unknown',
-          notes: `Added from ${DICTIONARIES.find(d => d.id === selectedDict)?.name}`
-        };
-
-        // Add to vocabulary
-        addWord(wordToAdd);
+        const dictionary = DICTIONARIES.find(d => d.id === selectedDict);
+        if (!dictionary) {
+          throw new Error('Selected dictionary not found');
+        }
+        const result = await searchDictionary(searchTerm, dictionary);
+        setSearchResults({ [selectedDict]: result });
       }
-    } catch (err) {
-      console.error('Dictionary search error:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch dictionary data. Please try again.');
-      setSearchResult('');
+    } catch (error) {
+      console.error('Search error:', error);
+      setError(error instanceof Error ? error.message : 'An error occurred during search');
     } finally {
       setIsLoading(false);
     }
@@ -252,55 +244,45 @@ export const Dictionary: React.FC = () => {
 
   return (
     <div className="dictionary-container">
-      <div className="dictionary-header">
-        <select 
-          className="dictionary-select"
-          value={selectedDict}
-          onChange={(e) => setSelectedDict(e.target.value)}
-        >
-          {DICTIONARIES.map(dict => (
-            <option key={dict.id} value={dict.id}>
-              {dict.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
       <div className="search-section">
-        <div className="search-wrapper">
+        <div className="dictionary-select">
+          <label htmlFor="dictionary">Dictionary:</label>
+          <select
+            id="dictionary"
+            value={selectedDict}
+            onChange={(e) => setSelectedDict(e.target.value)}
+          >
+            {DICTIONARIES.map(dict => (
+              <option key={dict.id} value={dict.id}>
+                {dict.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="search-input">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search Sanskrit words..."
-            className="search-input"
+            placeholder="Enter Sanskrit word (IAST, Velthuis, or SLP1)"
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
           />
-          <button 
-            onClick={handleSearch} 
-            disabled={isLoading || !searchTerm.trim()} 
-            className={`search-button ${isLoading ? 'loading' : ''}`}
-          >
-            {isLoading ? '' : 'Search'}
+          <button onClick={handleSearch} disabled={isLoading}>
+            {isLoading ? 'Searching...' : 'Search'}
           </button>
         </div>
-        <div className="input-guide">
-          <span className="input-guide-label">Input formats</span>
-          <span className="input-format">IAST (ātman)</span>
-          <span className="input-separator">•</span>
-          <span className="input-format">Velthuis (aatman)</span>
-          <span className="input-separator">•</span>
-          <span className="input-format">SLP1 (Atman)</span>
-        </div>
       </div>
-      
+
       {error && <div className="error-message">{error}</div>}
-      
-      {searchResult && !error && (
-        <div className="result-section">
-          <div dangerouslySetInnerHTML={{ __html: searchResult }} />
-        </div>
-      )}
+
+      <div className="results-section">
+        {Object.entries(searchResults).map(([dictId, result]) => (
+          <div key={dictId} className="dictionary-result">
+            <h3>{DICTIONARIES.find(d => d.id === dictId)?.name}</h3>
+            <div className="result-content" dangerouslySetInnerHTML={{ __html: result }} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }; 
