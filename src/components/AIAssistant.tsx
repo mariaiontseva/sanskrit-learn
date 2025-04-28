@@ -17,10 +17,14 @@ You specialize in:
 Help users understand Sanskrit texts, explain grammar rules, provide cultural context, and answer questions about Indian philosophy and literature.
 Keep your responses clear, informative, and engaging.`;
 
+// Use the Render.com deployment URL
+const API_URL = 'https://sanskrit-learn-api.onrender.com/api/chat';
+
 export const AIAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,41 +34,34 @@ export const AIAssistant: React.FC = () => {
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    setError(null);
 
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: 'gpt-4-turbo-preview',
-          messages: [
-            {
-              role: 'system',
-              content: SYSTEM_PROMPT
-            },
-            ...messages,
-            userMessage
-          ],
-          temperature: 0.7,
-          max_tokens: 1000,
+          messages: [...messages, userMessage],
+          systemPrompt: SYSTEM_PROMPT,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to get response from AI');
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error || 'Failed to get response from AI');
       }
 
       const data = await response.json();
       const assistantMessage = {
         role: 'assistant' as const,
-        content: data.choices[0].message.content,
+        content: data.content,
       };
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error:', error);
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'Sorry, I encountered an error. Please try again.'
@@ -99,6 +96,11 @@ export const AIAssistant: React.FC = () => {
         {isLoading && (
           <div className="message assistant-message">
             <div className="message-content loading">Thinking...</div>
+          </div>
+        )}
+        {error && (
+          <div className="error-message">
+            Error: {error}
           </div>
         )}
       </div>
