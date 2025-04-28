@@ -244,7 +244,7 @@ export const Dictionary: React.FC = () => {
 
   return (
     <div className="dictionary-container">
-      <div className="search-section">
+      <div className="dictionary-header">
         <div className="dictionary-select">
           <label htmlFor="dictionary">Dictionary:</label>
           <select
@@ -252,33 +252,46 @@ export const Dictionary: React.FC = () => {
             value={selectedDict}
             onChange={(e) => setSelectedDict(e.target.value)}
           >
-            {DICTIONARIES.map(dict => (
+            {DICTIONARIES.map((dict) => (
               <option key={dict.id} value={dict.id}>
                 {dict.name}
               </option>
             ))}
           </select>
         </div>
-        <div className="search-input">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Enter Sanskrit word (IAST, Velthuis, or SLP1)"
-            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-          />
-          <button onClick={handleSearch} disabled={isLoading}>
-            {isLoading ? 'Searching...' : 'Search'}
-          </button>
+      </div>
+
+      <div className="search-section">
+        <div className="search-wrapper">
+          <div className="search-input">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Enter Sanskrit word (IAST, Velthuis, or SLP1)"
+            />
+            <button
+              onClick={handleSearch}
+              disabled={isLoading || !searchTerm.trim()}
+              className={`search-button ${isLoading ? 'loading' : ''}`}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div className="input-guide">
+          <span className="input-guide-label">Example:</span>
+          <span className="input-format">ātman</span>
         </div>
       </div>
 
       {error && <div className="error-message">{error}</div>}
 
       <div className="results-section">
-        {Object.entries(searchResults).map(([dictId, result]) => (
-          <div key={dictId} className="dictionary-result">
-            <h3>{DICTIONARIES.find(d => d.id === dictId)?.name}</h3>
+        {Object.entries(searchResults).map(([dict, result]) => (
+          <div key={dict} className="dictionary-result">
+            <h3>{DICTIONARIES.find(d => d.id === dict)?.name}</h3>
             <div className="result-content" dangerouslySetInnerHTML={{ __html: result }} />
           </div>
         ))}

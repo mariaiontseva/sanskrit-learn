@@ -1,0 +1,168 @@
+.ai-assistant-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+}
+
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #228be6;
+}
+
+.welcome-message h2 {
+  color: #228be6;
+  margin: 0 0 16px 0;
+  font-size: 20px;
+}
+
+.welcome-message p {
+  color: #495057;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.welcome-message ul {
+  margin: 0 0 12px 0;
+  padding-left: 24px;
+}
+
+.welcome-message li {
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.message {
+  margin-bottom: 16px;
+  max-width: 80%;
+}
+
+.user-message {
+  margin-left: auto;
+}
+
+.assistant-message {
+  margin-right: auto;
+}
+
+.message-content {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.user-message .message-content {
+  background-color: #228be6;
+  color: white;
+}
+
+.assistant-message .message-content {
+  background-color: #f1f3f5;
+  color: #495057;
+}
+
+.message-content.loading {
+  background-color: #f1f3f5;
+  color: #868e96;
+  animation: pulse 1.5s infinite;
+}
+
+.input-form {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-form input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #495057;
+}
+
+.input-form input:focus {
+  outline: none;
+  border-color: #228be6;
+  box-shadow: 0 0 0 3px rgba(34, 139, 230, 0.1);
+}
+
+.input-form button {
+  padding: 10px 20px;
+  background-color: #228be6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.input-form button:hover:not(:disabled) {
+  background-color: #1c7ed6;
+}
+
+.input-form button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-assistant-container {
+    padding: 16px;
+    height: calc(100vh - 150px);
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  .input-form {
+    flex-direction: column;
+  }
+
+  .input-form button {
+    width: 100%;
+  }
+
+  .welcome-message {
+    padding: 16px;
+  }
+} 

@@ -4,6 +4,7 @@ import { Dictionary } from './components/Dictionary';
 import { Vocabulary } from './components/Vocabulary';
 import { Grammar } from './components/Grammar';
 import { Reading } from './components/Reading';
+import { AIAssistant } from './components/AIAssistant';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dictionary');
@@ -35,6 +36,12 @@ function App() {
         >
           Reading
         </button>
+        <button 
+          className={`tab-button ${activeTab === 'assistant' ? 'active' : ''}`}
+          onClick={() => setActiveTab('assistant')}
+        >
+          AI Assistant
+        </button>
       </nav>
 
       <div className="tab-content">
@@ -42,6 +49,7 @@ function App() {
         {activeTab === 'vocabulary' && <Vocabulary />}
         {activeTab === 'grammar' && <Grammar />}
         {activeTab === 'reading' && <Reading />}
+        {activeTab === 'assistant' && <AIAssistant />}
       </div>
     </div>
   );
