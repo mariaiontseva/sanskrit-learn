@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: sanskrit-learn-api
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false # This will be set manually in the Render dashboard
+      - key: PORT
+        value: 10000 # Render requires port 10000 for web services
+    cors:
+      allowOrigins:
+        - https://mariaiontseva.github.io 
